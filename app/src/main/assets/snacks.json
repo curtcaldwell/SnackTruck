@@ -1,0 +1,48 @@
+[
+  { "id": 0,
+    "name": "French fries",
+    "isVeggie": "yes"
+
+  },
+  { "id": 1,
+    "name": "Veggieburger",
+    "isVeggie": "yes"
+
+  },
+  { "id": 2,
+    "name": "Carrots",
+    "isVeggie": "yes"
+
+  },
+  { "id": 3,
+    "name": "Apple",
+    "isVeggie": "yes"
+
+  },
+  { "id": 4,
+    "name": "Banana",
+    "isVeggie": "yes"
+
+  },
+  { "id": 5,
+    "name": "Milkshake",
+    "isVeggie": "yes"
+
+  },
+  { "id": 6,
+    "name": "Cheeseburger",
+    "isVeggie": "no"
+
+  },
+  { "id": 7,
+    "name": "Hamburger",
+    "isVeggie": "no"
+
+  },
+  { "id": 8,
+    "name": "Hot dog",
+    "isVeggie": "no"
+
+  }
+
+]
