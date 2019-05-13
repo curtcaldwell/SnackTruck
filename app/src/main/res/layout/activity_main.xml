@@ -18,7 +18,7 @@
 
     <CheckBox
         android:id="@+id/veggieCheckBox"
-        android:buttonTint="@android:color/black"
+        android:buttonTint="@android:color/holo_green_light"
         android:textColor="@android:color/holo_green_light"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         />
     <CheckBox
         android:id="@+id/nonVeggieCheckBox"
-        android:buttonTint="@android:color/black"
+        android:buttonTint="@android:color/holo_red_light"
         android:textColor="@android:color/holo_red_light"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

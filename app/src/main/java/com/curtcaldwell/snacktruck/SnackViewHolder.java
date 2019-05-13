@@ -1,5 +1,6 @@
 package com.curtcaldwell.snacktruck;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorRes;
@@ -29,11 +30,13 @@ public class SnackViewHolder extends RecyclerView.ViewHolder {
             //work around for now, will fix if other versions need to be supported.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 checkBox.setTextColor(root.getContext().getColor(R.color.Green));
+                checkBox.setButtonTintList(ColorStateList.valueOf(root.getContext().getColor(R.color.Green)));
             }
             } else {
             //work around for now, will fix if other versions need to be supported.
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     checkBox.setTextColor(root.getContext().getColor(R.color.Red));
+                    checkBox.setButtonTintList(ColorStateList.valueOf(root.getContext().getColor(R.color.Red)));
                 }
             }
 
