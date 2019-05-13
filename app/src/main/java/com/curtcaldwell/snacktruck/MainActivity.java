@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
 
@@ -152,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
                 veggieList.add(snack);
 
-
             } else {
 
                 nonVeggieList.add(snack);
@@ -160,9 +158,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return snackList;
-
-
     }
+
 
     public void showSummaryDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -175,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
                 for (Snack snack : snackList) {
                     if (snack.getId().equals(entry.getKey())) {
                         arrayAdapter.add(snack.getName());
+                        snack.setIsChecked(false);
+
                     }
                 }
             }
@@ -183,10 +182,11 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
 
 
-                    //TODO: clear check box after submit.
                     adapter.updateList(snackList);
                     dialog.dismiss();
-
+                    checkedMap.clear();
+                    checkboxNonVeggieFilter.setChecked(true);
+                    checkboxVeggieFilter.setChecked(true);
 
                 }
             });
@@ -212,19 +212,8 @@ public class MainActivity extends AppCompatActivity {
 
         builder.show();
 
-
     }
 
-    private void changeColor() {
-        for (Map.Entry<Integer, Boolean> entry : checkedMap.entrySet()) {
-            if (entry.getValue()) ;
-            Log.i("msg", "msg");
-//            else {
-//                checkbox.setTextColor(Color.RED);
-
-        }
-
-    }
 
     public void toggleEmptyState(boolean showEmpty) {
         if (showEmpty) {
@@ -236,10 +225,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
     }
-
-
 
 
     private void submitButtonClicked() {

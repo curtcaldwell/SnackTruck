@@ -26,19 +26,19 @@ public class SnackViewHolder extends RecyclerView.ViewHolder {
         checkBox.setText(snack.getName());
         checkBox.setChecked(snack.getIsChecked());
         checkBox.setOnClickListener(listener);
-        if(snack.getIsVeggie()) {
+        if (snack.getIsVeggie()) {
             //work around for now, will fix if other versions need to be supported.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 checkBox.setTextColor(root.getContext().getColor(R.color.Green));
                 checkBox.setButtonTintList(ColorStateList.valueOf(root.getContext().getColor(R.color.Green)));
             }
-            } else {
+        } else {
             //work around for now, will fix if other versions need to be supported.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    checkBox.setTextColor(root.getContext().getColor(R.color.Red));
-                    checkBox.setButtonTintList(ColorStateList.valueOf(root.getContext().getColor(R.color.Red)));
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                checkBox.setTextColor(root.getContext().getColor(R.color.Red));
+                checkBox.setButtonTintList(ColorStateList.valueOf(root.getContext().getColor(R.color.Red)));
             }
+        }
 
     }
 }

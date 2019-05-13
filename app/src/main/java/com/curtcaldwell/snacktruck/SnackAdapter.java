@@ -22,8 +22,6 @@ public class SnackAdapter extends RecyclerView.Adapter<SnackViewHolder> {
         context = c;
         snackList = list;
         listener = l;
-
-
     }
 
     @NonNull
@@ -50,16 +48,14 @@ public class SnackAdapter extends RecyclerView.Adapter<SnackViewHolder> {
     }
 
     @Override
-    public  int getItemCount() {
-        return snackList.size(); }
+    public int getItemCount() {
+        return snackList.size();
+    }
+
 
     public void updateList(List<Snack> list) {
         snackList.clear();
         snackList.addAll(list);
         this.notifyDataSetChanged();
     }
-
-
-
-
 }
