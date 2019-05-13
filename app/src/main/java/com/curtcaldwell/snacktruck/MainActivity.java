@@ -1,8 +1,6 @@
 package com.curtcaldwell.snacktruck;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,23 +11,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FilterReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,16 +29,24 @@ public class MainActivity extends AppCompatActivity {
     private SnackAdapter adapter;
     private RecyclerView recyclerView;
     private Button submitButton;
-    CheckBox checkbox;
+    CheckBox checkboxVeggieFilter;
+    CheckBox checkboxNonVeggieFilter;
+    TextView error;
     private List<Snack> snackList = new ArrayList<>();
-    private Map<Integer,Boolean> checkedMap = new HashMap<>();
+    private List<Snack> veggieList = new ArrayList<>();
+    private List<Snack> nonVeggieList = new ArrayList<>();
+    private Map<Integer, Boolean> checkedMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        checkbox = findViewById(R.id.snack_name);
+        checkboxVeggieFilter = findViewById(R.id.veggieCheckBox);
+        checkboxNonVeggieFilter = findViewById(R.id.nonVeggieCheckBox);
+        checkboxVeggieFilter.setChecked(true);
+        error = findViewById(R.id.error);
+        checkboxNonVeggieFilter.setChecked(true);
         recyclerView = findViewById(R.id.snacks_recycler);
         recyclerView.setLayoutManager(layoutManager);
         submitButton = findViewById(R.id.submit);
@@ -63,10 +61,60 @@ public class MainActivity extends AppCompatActivity {
         getSnackList();
         adapter.updateList(snackList);
 
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitButtonClicked();
+            }
+        });
+
+        checkboxVeggieFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox checkBox = (CheckBox) v;
+                if (!checkboxNonVeggieFilter.isChecked() && checkboxVeggieFilter.isChecked()) {
+                    adapter.updateList(veggieList);
+                    toggleEmptyState(false);
+
+                } else if (checkboxNonVeggieFilter.isChecked() && !checkboxVeggieFilter.isChecked()) {
+                    adapter.updateList(nonVeggieList);
+                    toggleEmptyState(false);
+
+
+                } else if (checkboxNonVeggieFilter.isChecked() && checkboxVeggieFilter.isChecked()) {
+                    adapter.updateList(snackList);
+                    toggleEmptyState(false);
+
+                } else if (!checkboxNonVeggieFilter.isChecked() && !checkboxVeggieFilter.isChecked()) {
+                    toggleEmptyState(true);
+
+                }
+
+
+            }
+        });
+
+        checkboxNonVeggieFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox checkBox = (CheckBox) v;
+                if (checkboxNonVeggieFilter.isChecked() && !checkboxVeggieFilter.isChecked()) {
+                    adapter.updateList(nonVeggieList);
+                    toggleEmptyState(false);
+
+                } else if (!checkboxNonVeggieFilter.isChecked() && checkboxVeggieFilter.isChecked()) {
+                    adapter.updateList(veggieList);
+                    toggleEmptyState(false);
+                } else if (checkboxNonVeggieFilter.isChecked() && checkboxVeggieFilter.isChecked()) {
+                    adapter.updateList(snackList);
+                    toggleEmptyState(false);
+
+                } else if (!checkboxNonVeggieFilter.isChecked() && !checkboxVeggieFilter.isChecked()) {
+                    toggleEmptyState(true);
+
+                }
+
             }
         });
 
@@ -93,10 +141,21 @@ public class MainActivity extends AppCompatActivity {
         Type type = new TypeToken<List<Snack>>() {
 
         }.getType();
+
         snackList = gson.fromJson(json, type);
 
-        for(Snack snack: snackList ) {
+        for (Snack snack : snackList) {
             checkedMap.put(snack.getId(), false);
+
+
+            if (snack.getIsVeggie()) {
+
+                veggieList.add(snack);
+
+            } else {
+
+                nonVeggieList.add(snack);
+            }
         }
 
         return snackList;
@@ -110,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item);
 
-        for(Map.Entry<Integer, Boolean> entry : checkedMap.entrySet()) {
+        for (final Map.Entry<Integer, Boolean> entry : checkedMap.entrySet()) {
             if (entry.getValue()) {
                 for (Snack snack : snackList) {
                     if (snack.getId().equals(entry.getKey())) {
@@ -118,10 +177,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            builder.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+
+
+                    //TODO: clear check box after submit.
+                    adapter.updateList(snackList);
                     dialog.dismiss();
+
+
                 }
             });
 
@@ -136,30 +201,45 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+
                         }
                     });
                     builderInner.show();
                 }
             });
         }
-            builder.show();
+
+        builder.show();
+
 
     }
 
-//    private void changeColor() {
-//        for(Snack snack : snackList) {
-//            if(snack.getIsVeggie() == "yes");
-//            checkbox.setTextColor(Color.GREEN);
+    private void changeColor() {
+        for (Map.Entry<Integer, Boolean> entry : checkedMap.entrySet()) {
+            if (entry.getValue()) ;
+            Log.i("msg", "msg");
 //            else {
 //                checkbox.setTextColor(Color.RED);
-//
-//            }
-//
-//        }
-//
-//
-//
-//    }
+
+        }
+
+    }
+
+    public void toggleEmptyState(boolean showEmpty) {
+        if (showEmpty) {
+            recyclerView.setVisibility(View.INVISIBLE);
+            error.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setVisibility(View.VISIBLE);
+            error.setVisibility(View.INVISIBLE);
+
+        }
+
+
+    }
+
+
+
 
     private void submitButtonClicked() {
         showSummaryDialog();

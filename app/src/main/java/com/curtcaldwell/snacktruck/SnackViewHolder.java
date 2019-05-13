@@ -20,9 +20,9 @@ public class SnackViewHolder extends RecyclerView.ViewHolder {
         checkBox = itemView.findViewById(R.id.snack_name);
     }
 
-    public void onBind(Snack snack, View.OnClickListener listener) {
+    public void setData(Snack snack, View.OnClickListener listener) {
         checkBox.setText(snack.getName());
-        checkBox.setTextColor(Color.GREEN);
+        checkBox.setChecked(snack.getIsChecked());
         checkBox.setOnClickListener(listener);
     }
 }

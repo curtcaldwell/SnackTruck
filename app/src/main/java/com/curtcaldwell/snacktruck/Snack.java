@@ -14,9 +14,9 @@ public class Snack {
     private String name;
     @SerializedName("isVeggie")
     @Expose
-    private String isVeggie;
+    private boolean isVeggie;
 
-    private Boolean isChecked;
+    private boolean isChecked;
 
     public Integer getId() {
         return id;
@@ -34,19 +34,19 @@ public class Snack {
         this.name = name;
     }
 
-    public String getIsVeggie() {
+    public boolean getIsVeggie() {
         return isVeggie;
     }
 
-    public void setIsVeggie(String isVeggie) {
+    public void setIsVeggie(boolean isVeggie) {
         this.isVeggie = isVeggie;
     }
 
-    public Boolean getIsChecked() {
+    public boolean getIsChecked() {
         return isChecked;
     }
 
-    public void setIsChecked() {
+    public void setIsChecked(boolean isChecked) {
         this.isChecked = isChecked;
     }
 
