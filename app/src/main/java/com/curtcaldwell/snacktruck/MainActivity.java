@@ -1,22 +1,25 @@
 package com.curtcaldwell.snacktruck;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.annotation.ColorInt;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -26,18 +29,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private SnackAdapter adapter;
     private RecyclerView recyclerView;
-    private String m_Text = "";
     private Button submitButton;
     CheckBox checkboxVeggieFilter;
     CheckBox checkboxNonVeggieFilter;
+    private String m_Text = "";
     TextView error;
     private List<Snack> snackList = new ArrayList<>();
     private List<Snack> veggieList = new ArrayList<>();
@@ -148,9 +149,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.addbutton) {
-//            showAddDialog();
+        if (id == R.id.addbutton) {
+
         }
+        showAddDialog();
 
         return super.onOptionsItemSelected(item);
     }
@@ -257,39 +259,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    private void showAddDialog() {
-//
-//
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        CharSequence[] array = {“Veggie”, “Non-Veggie”};
-//        builder.setTitle("What snack would you like to add?");
-//
-//
-//// Set up the input
-//        final EditText input = new EditText(this);
-//// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-//        input.setInputType(InputType.TYPE_CLASS_TEXT);
-//        input.setSelection();
-//        builder.setView(input);
-//
-//// Set up the buttons
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                m_Text = input.getText().toString();
-//            }
-//        });
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.cancel();
-//            }
-//        });
-//
-//        builder.show();
-//    }
+    private void showAddDialog() {
 
+        final Dialog dialog = new Dialog(this);
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        dialog.setTitle("Add A Snack");
+
+        dialog.setContentView(R.layout.radio_buttondialog);
+
+        RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
+
+        dialog.show();
+
+
+    }
 
 
 
