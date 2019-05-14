@@ -9,6 +9,7 @@
         android:icon="@drawable/ic_add_white_35dp"
         android:title="add"
         app:showAsAction="always"
+        android:id="@+id/addbutton"
         android:iconTint="@android:color/white"
 
 

@@ -7,13 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SnackAdapter adapter;
     private RecyclerView recyclerView;
+    private String m_Text = "";
     private Button submitButton;
     CheckBox checkboxVeggieFilter;
     CheckBox checkboxNonVeggieFilter;
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 submitButtonClicked();
             }
         });
+
 
         checkboxVeggieFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +144,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.addbutton) {
+//            showAddDialog();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     public List<Snack> getSnackList() {
         String json = null;
@@ -186,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item);
 
-        for (int i = 0; i <= checkedList.size() - 1 ; i++) {
+        for (int i = 0; i <= checkedList.size() - 1; i++) {
             arrayAdapter.add(checkedList.get(i).getName());
 
         }
@@ -208,23 +223,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        builder.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String strName = arrayAdapter.getItem(which);
-                AlertDialog.Builder builderInner = new AlertDialog.Builder(null);
-                builderInner.setMessage(strName);
-                builderInner.setTitle("Your Selected Items");
-                builderInner.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-
-                    }
-                });
-                builderInner.show();
-            }
-        });
+        builder.setAdapter(arrayAdapter, null);
         builder.show();
     }
 
@@ -250,12 +249,49 @@ public class MainActivity extends AppCompatActivity {
         if (checkedList.size() == 0) {
             submitButton.setEnabled(false);
 
+
         } else {
             submitButton.setVisibility(View.VISIBLE);
             submitButton.setEnabled(true);
 
         }
     }
+
+//    private void showAddDialog() {
+//
+//
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        CharSequence[] array = {“Veggie”, “Non-Veggie”};
+//        builder.setTitle("What snack would you like to add?");
+//
+//
+//// Set up the input
+//        final EditText input = new EditText(this);
+//// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+//        input.setInputType(InputType.TYPE_CLASS_TEXT);
+//        input.setSelection();
+//        builder.setView(input);
+//
+//// Set up the buttons
+//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                m_Text = input.getText().toString();
+//            }
+//        });
+//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.cancel();
+//            }
+//        });
+//
+//        builder.show();
+//    }
+
+
+
 
 
     public interface SnackListener {
