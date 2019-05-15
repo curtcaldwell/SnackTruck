@@ -264,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
     private void submitButtonClicked() {
 
         showSummaryDialog();
+        sendOrder(checkedList);
     }
 
     private void toggleSubmitButton() {
@@ -363,6 +364,11 @@ public class MainActivity extends AppCompatActivity {
 
     public interface SnackListener {
         Snack onSnackClick(Snack snack, Boolean checked);
+    }
+
+    public void sendOrder(List<Snack> list) {
+
+        //this is where the Api call would exist to send the order.
     }
 
 }
