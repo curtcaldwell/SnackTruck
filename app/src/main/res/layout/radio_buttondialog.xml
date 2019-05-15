@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
         android:text="Add A Snack"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/input_text"
@@ -50,11 +49,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:id="@+id/veggie_radio"
+            android:checked="true"
             android:text="Veggie" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/non_veggie_radio"
             android:text="Non-Veggie" />
 
     </RadioGroup>
@@ -72,14 +74,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/submit_button"
+        android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="45dp"
         android:layout_marginRight="10dp"
-        android:text="Submit"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cancel_button" />

@@ -1,24 +1,23 @@
 package com.curtcaldwell.snacktruck;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -29,16 +28,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String PREF_FILE = "PREF_FILE";
     private SnackAdapter adapter;
     private RecyclerView recyclerView;
     private Button submitButton;
     CheckBox checkboxVeggieFilter;
     CheckBox checkboxNonVeggieFilter;
-    private String m_Text = "";
     TextView error;
     private List<Snack> snackList = new ArrayList<>();
     private List<Snack> veggieList = new ArrayList<>();
@@ -178,6 +179,22 @@ public class MainActivity extends AppCompatActivity {
         }.getType();
 
         snackList = gson.fromJson(json, type);
+
+        final SharedPreferences sharedPref = this.getSharedPreferences(
+                PREF_FILE, Context.MODE_PRIVATE);
+
+
+        Map<String, ?> prefMap = sharedPref.getAll();
+
+        for (Map.Entry<String, ?> entry : prefMap.entrySet()) {
+            String string = sharedPref.getString(entry.getKey(), "");
+            if (!string.isEmpty()) {
+                snackList.add(gson.fromJson(string, Snack.class));
+
+            }
+        }
+
+
         veggieList.clear();
         nonVeggieList.clear();
         for (Snack snack : snackList) {
@@ -244,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void submitButtonClicked() {
+
         showSummaryDialog();
     }
 
@@ -268,14 +286,78 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.setContentView(R.layout.radio_buttondialog);
 
-        RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
+        Context context = this;
+
+        final SharedPreferences sharedPref = context.getSharedPreferences(
+                PREF_FILE, Context.MODE_PRIVATE);
+
+        final SharedPreferences.Editor editor = sharedPref.edit();
+
+        final Gson gson = new Gson();
+        final RadioGroup rg = (RadioGroup) dialog.findViewById(R.id.radio_group);
+        final Button saveButton = dialog.findViewById(R.id.save_button);
+        Button cancelButton = dialog.findViewById(R.id.cancel_button);
+        final EditText inputText = dialog.findViewById(R.id.input_text);
+
+        inputText.requestFocus();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String snackName = inputText.getText().toString();
+                Snack snack = new Snack();
+
+                if (inputText.getText().toString().trim().equalsIgnoreCase("")) {
+                    inputText.setError("Please Enter A Snack");
+                } else {
+
+
+                    if (rg.getCheckedRadioButtonId() == R.id.veggie_radio) {
+                        snack.setIsVeggie(true);
+                    } else {
+                        snack.setIsVeggie(false);
+                    }
+
+                    snack.setName(snackName);
+
+
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString(snackName.toLowerCase(), new Gson().toJson(snack));
+
+
+                    editor.commit();
+                    adapter.newItem(snack);
+
+                    dialog.dismiss();
+                }
+            }
+
+        });
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+
 
         dialog.show();
 
 
     }
-
-
 
 
     public interface SnackListener {

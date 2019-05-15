@@ -1,45 +1,45 @@
 [
-  { "id": 0,
+  {
     "name": "French fries",
     "isVeggie": true
 
   },
-  { "id": 1,
+  {
     "name": "Veggieburger",
     "isVeggie": true
 
   },
-  { "id": 2,
+  {
     "name": "Carrots",
     "isVeggie": true
 
   },
-  { "id": 3,
+  {
     "name": "Apple",
     "isVeggie": true
 
   },
-  { "id": 4,
+  {
     "name": "Banana",
     "isVeggie": true
 
   },
-  { "id": 5,
+  {
     "name": "Milkshake",
     "isVeggie": true
 
   },
-  { "id": 6,
+  {
     "name": "Cheeseburger",
     "isVeggie": false
 
   },
-  { "id": 7,
+  {
     "name": "Hamburger",
     "isVeggie": false
 
   },
-  { "id": 8,
+  {
     "name": "Hot dog",
     "isVeggie": false
 
