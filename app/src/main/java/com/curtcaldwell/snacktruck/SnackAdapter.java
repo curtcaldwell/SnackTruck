@@ -59,7 +59,4 @@ public class SnackAdapter extends RecyclerView.Adapter<SnackViewHolder> {
         this.notifyDataSetChanged();
     }
 
-    public void newItem(Snack snack) {
-        snackList.add(snack);
-    }
 }

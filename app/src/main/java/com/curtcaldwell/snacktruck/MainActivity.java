@@ -180,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
 
         snackList = gson.fromJson(json, type);
 
+
+
         final SharedPreferences sharedPref = this.getSharedPreferences(
                 PREF_FILE, Context.MODE_PRIVATE);
 
@@ -330,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     editor.commit();
-                    adapter.newItem(snack);
+                    adapter.updateList(getSnackList());
 
                     dialog.dismiss();
                 }
