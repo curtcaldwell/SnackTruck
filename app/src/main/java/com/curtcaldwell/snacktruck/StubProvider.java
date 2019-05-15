@@ -6,36 +6,56 @@ import android.database.Cursor;
 import android.net.Uri;
 
 public class StubProvider extends ContentProvider {
+    /*
+     * Always return true, indicating that the
+     * provider loaded correctly.
+     */
     @Override
     public boolean onCreate() {
-        return false;
+        return true;
     }
-
-    @androidx.annotation.Nullable
+    /*
+     * Return no type for MIME type
+     */
     @Override
-    public Cursor query(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable String[] projection, @androidx.annotation.Nullable String selection, @androidx.annotation.Nullable String[] selectionArgs, @androidx.annotation.Nullable String sortOrder) {
+    public String getType(Uri uri) {
         return null;
     }
-
-    @androidx.annotation.Nullable
+    /*
+     * query() always returns no results
+     *
+     */
     @Override
-    public String getType(@androidx.annotation.NonNull Uri uri) {
+    public Cursor query(
+            Uri uri,
+            String[] projection,
+            String selection,
+            String[] selectionArgs,
+            String sortOrder) {
         return null;
     }
-
-    @androidx.annotation.Nullable
+    /*
+     * insert() always returns null (no URI)
+     */
     @Override
-    public Uri insert(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable ContentValues values) {
+    public Uri insert(Uri uri, ContentValues values) {
         return null;
     }
-
+    /*
+     * delete() always returns "no rows affected" (0)
+     */
     @Override
-    public int delete(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable String selection, @androidx.annotation.Nullable String[] selectionArgs) {
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
         return 0;
     }
-
-    @Override
-    public int update(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable ContentValues values, @androidx.annotation.Nullable String selection, @androidx.annotation.Nullable String[] selectionArgs) {
+    /*
+     * update() always returns "no rows affected" (0)
+     */
+    public int update(
+            Uri uri,
+            ContentValues values,
+            String selection,
+            String[] selectionArgs) {
         return 0;
     }
 }
