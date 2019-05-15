@@ -4,4 +4,18 @@
     <string name="show_summary_dialog_title">Order Summary:</string>
     <string name="summary_dialog_positive_button">Ok</string>
     <string name="add_dialog_title_message">Add A Snack</string>
+    <string name="veggie_checkbox_text">Veggie</string>
+    <string name="non_veggie_checkbox_text">Non-Veggie</string>
+    <string name="nothing_selected_text_view">Please Select Veggie or Non-Veggie to see choices.</string>
+    <string name="submit_order_button_text">Submit Order</string>
+    <string name="add_snack_radio_button">Add A Snack</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="save_button_text">Save</string>
+
+
+
+
+
+
+
 </resources>
