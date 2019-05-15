@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showSummaryDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Order Summary:");
+        builder.setTitle(getString(R.string.show_summary_dialog_title));
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item);
 
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         getSnackList();
 
 
-        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.summary_dialog_positive_button), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -284,8 +284,7 @@ public class MainActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
 
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        dialog.setTitle("Add A Snack");
-
+        dialog.setTitle(getString(R.string.add_dialog_title_message));
         dialog.setContentView(R.layout.radio_buttondialog);
 
         Context context = this;
@@ -314,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
                 Snack snack = new Snack();
 
                 if (inputText.getText().toString().trim().equalsIgnoreCase("")) {
-                    inputText.setError("Please Enter A Snack");
+                    inputText.setError(getString(R.string.edit_text_error_message));
                 } else {
 
 

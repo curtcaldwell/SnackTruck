@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SnackTruck</string>
+    <string name="edit_text_error_message">Please Enter A Snack</string>
+    <string name="show_summary_dialog_title">Order Summary:</string>
+    <string name="summary_dialog_positive_button">Ok</string>
+    <string name="add_dialog_title_message">Add A Snack</string>
 </resources>
