@@ -7,125 +7,88 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/snacks_recycler"
-        android:id="@+id/title"
-        android:orientation="horizontal">
-
-    <CheckBox
-        android:id="@+id/veggieCheckBox"
-        android:buttonTint="@android:color/holo_green_light"
-        android:textColor="@android:color/holo_green_light"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Veggie"
-        android:textSize="30dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/nonVeggieCheckBox"
-        />
-    <CheckBox
-        android:id="@+id/nonVeggieCheckBox"
-        android:buttonTint="@android:color/holo_red_light"
-        android:textColor="@android:color/holo_red_light"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Non-Veggie"
-        android:textSize="30dp"
-        app:layout_constraintStart_toEndOf="@id/veggieCheckBox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <CheckBox
+            android:id="@+id/veggieCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@android:color/holo_green_light"
+            android:text="Veggie"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="30dp"
+            app:layout_constraintEnd_toStartOf="@id/nonVeggieCheckBox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/nonVeggieCheckBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@android:color/holo_red_light"
+            android:text="Non-Veggie"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/veggieCheckBox"
+            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
         android:id="@+id/line"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
 
         android:background="#000000"
-        app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintBottom_toTopOf="@id/snacks_recycler"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/snacks_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/line"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/submit"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line" />
 
     <TextView
-        android:layout_width="wrap_content"
         android:id="@+id/error"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
         android:text="Please Select Veggie or Non-Veggie to see choices."
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/submit_button"
         android:gravity="center"
         android:padding="10dp"
         android:text="Submit Order"
         android:textColor="@android:color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/submit_button"
-        android:layout_margin="10dp"
-
 
 
         />
-
-
-
-
-
-
-
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="horizontal"-->
-        <!--tools:layout_editor_absoluteX="0dp"-->
-        <!--tools:layout_editor_absoluteY="0dp">-->
-
-        <!--<TextView-->
-
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center"-->
-            <!--android:text="cnsdsdsf:" />-->
-
-
-      <!---->
-
-        <!--<Button-->
-
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center"-->
-            <!--android:text="Submit" />-->
-    <!--</LinearLayout>-->
 
 
 </android.support.constraint.ConstraintLayout>
